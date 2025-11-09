@@ -1,5 +1,5 @@
 {
-  "name": "helga-agentur/storybook",
+  "name": "helga-agentur/helga_storybook",
   "description": "This module delivers extensions to the Storybook module for Drupal",
   "minimum-stability": "stable",
   "type": "drupal-module",
