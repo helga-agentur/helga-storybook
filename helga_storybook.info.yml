@@ -1,0 +1,7 @@
+name: 'helga_storybook'
+type: module
+description: 'Extends on the Drupal/storybook concepts'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - storybook:storybook

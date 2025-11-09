@@ -1,0 +1,31 @@
+services:
+  helga_storybook.commands.generate_all_component_stories:
+    class: Drupal\helga_storybook\Drush\Commands\GenerateAllComponentStories
+    arguments:
+      - '@TwigStorybook\Service\StoryRenderer'
+      - '@file_system'
+    tags:
+      - { name: drush.command }
+  helga_storybook.commands.generate_component_stories:
+    class: Drupal\helga_storybook\Drush\Commands\GenerateComponentStories
+    arguments:
+      - '@TwigStorybook\Service\StoryRenderer'
+      - '@file_system'
+    tags:
+      - { name: drush.command }
+  helga_storybook.commands.generate_all_stories:
+    class: Drupal\helga_storybook\Drush\Commands\ReplaceGenerateAllStories
+    arguments:
+      - '%app.root%'
+      - '@TwigStorybook\Service\StoryRenderer'
+      - '@file_system'
+    tags:
+      - { name: drush.command }
+  helga_storybook.commands.generate_stories:
+    class: Drupal\helga_storybook\Drush\Commands\ReplaceGenerateStories
+    arguments:
+      - '%app.root%'
+      - '@TwigStorybook\Service\StoryRenderer'
+      - '@file_system'
+    tags:
+      - { name: drush.command }
