@@ -1,0 +1,13 @@
+{
+  "packageManager": "yarn@4.10.3",
+  "devDependencies": {
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.1",
+    "@storybook/server-webpack5": "^10.0.5",
+    "storybook": "^10.0.5"
+  },
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "type": "module"
+}

@@ -12,6 +12,51 @@
   ],
   "require": {
     "drupal/core": "^10 | ^11",
-    "drupal/storybook": "^1.0"
+    "drupal/storybook": "^1.0",
+    "drupal/core-composer-scaffold": "^10 | ^11"
+  },
+  "scripts": {
+    "post-drupal-scaffold-cmd": [
+      "cd storybook && yarn install --silent"
+    ]
+  },
+  "extra": {
+    "drupal-scaffold": {
+      "locations": {
+        "project-root": "./"
+      },
+      "file-mapping": {
+        "[project-root]/storybook/.storybook/main.js": {
+          "mode": "replace",
+          "path": "assets/storybook/.storybook/main.js",
+          "overwrite": false
+        },
+        "[project-root]/storybook/.storybook/preview.js": {
+          "mode": "replace", 
+          "path": "assets/storybook/.storybook/preview.js",
+          "overwrite": false
+        },
+        "[project-root]/storybook/package.json": {
+          "mode": "replace",
+          "path": "assets/storybook/package.json",
+          "overwrite": false
+        },
+        "[project-root]/storybook/package-lock.json": {
+          "mode": "replace",
+          "path": "assets/storybook/package-lock.json",
+          "overwrite": false
+        },
+        "[project-root]/storybook/.yarnrc.yml": {
+          "mode": "replace",
+          "path": "assets/storybook/.yarnrc.yml",
+          "overwrite": false
+        },
+        "[project-root]/storybook/.gitignore": {
+          "mode": "replace",
+          "path": "assets/storybook/.gitignore",
+          "overwrite": false
+        }
+      }
+    }
   }
 }
