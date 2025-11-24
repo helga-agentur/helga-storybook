@@ -71,7 +71,6 @@ trait GenerateComponentStoriesTrait {
     if (!$args) {
       return NULL;
     }
-    $args_types = [];
     $required = $sdc_metadata->schema['required'] ?? [];
     foreach ($args as $arg_name => $arg_data) {
       $is_slot = !empty($arg_data['slot']) && $arg_data['slot'];
@@ -81,6 +80,7 @@ trait GenerateComponentStoriesTrait {
       if (!empty($arg_data['title'])) {
         $arg_definition['title'] = $arg_data['title'];
       }
+      $arg_data['type'] ??= NULL;
       $type = is_array($arg_data['type']) ? $arg_data['type'][0] : $arg_data['type'];
       $arg_definition['type'] = $type;
       if ($required && in_array($arg_name, $required)) {
