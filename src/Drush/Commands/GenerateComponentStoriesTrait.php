@@ -28,7 +28,7 @@ trait GenerateComponentStoriesTrait {
       $this->logger()->success('Skipping component stories yaml file generation for ' . $destination_path);
       return;
     }
-    $data = $this->generateStoryFromComponentFile($componentMetadata);
+    $data = $this->generateStoryFromComponentFile($component->getPluginId(), $componentMetadata);
     try {
       file_put_contents($destination_path, $data);
     }
@@ -43,12 +43,17 @@ trait GenerateComponentStoriesTrait {
   /**
    * Generate story YAML from a component file.
    *
+   * @param string $sdc_id
+   *   The component ID.
+   * @param mixed $sdc_metadata
+   *   The component metadata.
+   *
    * @return array
    *   The generated story yaml data.
    */
-  private function generateStoryFromComponentFile(mixed $sdc_metadata): ?string {
+  private function generateStoryFromComponentFile(string $sdc_id, mixed $sdc_metadata): ?string {
     $vars = [
-      'component_id' => $sdc_metadata->id,
+      'component_id' => $sdc_id,
       'component_title_namespaced' => 'Components/SDC/' . $sdc_metadata->name,
       'component_machine_name' => str_replace('-', '_', $sdc_metadata->machineName),
       'component_args' => [],
