@@ -62,6 +62,10 @@ final class ReplaceGenerateAllStories extends DrushCommands {
           // Otherwise, if 'omit-server-url' is FALSE,
           // and if 'include-server-url' is FALSE (default), then 'omit-server-url' is set to TRUE.
           // Finally, if none of the above, then 'omit-server-url' is FALSE.
+          // Which means the following three scenarios are covered:
+          // 1. User sets no arguments: server URL is omitted (default).
+          // 2. User sets --omit-server-url: server URL is omitted.
+          // 3. User sets --include-server-url: server URL is included.
           'omit-server-url' => $options['omit-server-url'] || !$options['include-server-url'],
         ] + $options
       ),
