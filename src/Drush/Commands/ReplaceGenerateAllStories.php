@@ -42,7 +42,7 @@ final class ReplaceGenerateAllStories extends DrushCommands {
    * outside of the component's directory.
    */
   #[CLI\Hook(type: HookManager::REPLACE_COMMAND_HOOK, target: 'storybook:generate-all-stories')]
-  public function generateAllStories($options = ['force' => FALSE, 'omit-server-url' => FALSE]): void {
+  public function generateAllStories($options = ['force' => FALSE, 'include-server-url' => FALSE]): void {
     // Find all templates in the site and call generateStoriesForTemplate.
     $scan_dirs = ['themes', 'modules', 'profiles'];
     $template_files = array_reduce(
@@ -57,7 +57,17 @@ final class ReplaceGenerateAllStories extends DrushCommands {
       $template_files,
       fn (\SplFileInfo $template_file) => $this->generateStoriesForTemplateUtil(
         $template_file,
-        $options,
+        [
+          // If 'omit-server-url' is TRUE, it stays TRUE.
+          // Otherwise, if 'omit-server-url' is FALSE,
+          // and if 'include-server-url' is FALSE (default), then 'omit-server-url' is set to TRUE.
+          // Finally, if none of the above, then 'omit-server-url' is FALSE.
+          // Which means the following three scenarios are covered:
+          // 1. User sets no arguments: server URL is omitted (default).
+          // 2. User sets --omit-server-url: server URL is omitted.
+          // 3. User sets --include-server-url: server URL is included.
+          'omit-server-url' => $options['omit-server-url'] || !$options['include-server-url'],
+        ] + $options
       ),
     );
   }

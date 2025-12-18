@@ -20,7 +20,7 @@ trait GenerateStoriesTrait {
   /**
    * Generate stories for a given template.
    */
-  private function generateStoriesForTemplateUtil(\SplFileInfo $template_path_finfo, $options = ['force' => FALSE, 'omit-server-url' => FALSE]): void {
+  private function generateStoriesForTemplateUtil(\SplFileInfo $template_path_finfo, $options = ['force' => FALSE, 'omit-server-url' => TRUE]): void {
     $url = '';
     if (!$options['omit-server-url']) {
       $url = Url::fromUri('internal:/storybook/stories/render', ['absolute' => TRUE])
@@ -41,7 +41,7 @@ trait GenerateStoriesTrait {
     $data = $this->storyRenderer
       ->generateStoriesJsonFile($template_path_finfo->getPathname(), $url);
     try {
-      file_put_contents($destination_path, json_encode($data, JSON_THROW_ON_ERROR));
+      file_put_contents($destination_path, json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
     }
     catch (\JsonException $e) {
       throw new CommandFailedException('JSON encoding failed.', previous: $e);
