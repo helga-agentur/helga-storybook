@@ -42,7 +42,7 @@ final class ReplaceGenerateAllStories extends DrushCommands {
    * outside of the component's directory.
    */
   #[CLI\Hook(type: HookManager::REPLACE_COMMAND_HOOK, target: 'storybook:generate-all-stories')]
-  public function generateAllStories($options = ['force' => FALSE, 'omit-server-url' => FALSE]): void {
+  public function generateAllStories($options = ['force' => FALSE, 'include-server-url' => FALSE]): void {
     // Find all templates in the site and call generateStoriesForTemplate.
     $scan_dirs = ['themes', 'modules', 'profiles'];
     $template_files = array_reduce(
@@ -57,7 +57,9 @@ final class ReplaceGenerateAllStories extends DrushCommands {
       $template_files,
       fn (\SplFileInfo $template_file) => $this->generateStoriesForTemplateUtil(
         $template_file,
-        $options,
+        [
+          'omit-server-url' => $options['omit-server-url'] || !$options['include-server-url'],
+        ] + $options
       ),
     );
   }
