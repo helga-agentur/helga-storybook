@@ -58,6 +58,10 @@ final class ReplaceGenerateAllStories extends DrushCommands {
       fn (\SplFileInfo $template_file) => $this->generateStoriesForTemplateUtil(
         $template_file,
         [
+          // If 'omit-server-url' is TRUE, it stays TRUE.
+          // Otherwise, if 'omit-server-url' is FALSE,
+          // and if 'include-server-url' is FALSE (default), then 'omit-server-url' is set to TRUE.
+          // Finally, if none of the above, then 'omit-server-url' is FALSE.
           'omit-server-url' => $options['omit-server-url'] || !$options['include-server-url'],
         ] + $options
       ),
